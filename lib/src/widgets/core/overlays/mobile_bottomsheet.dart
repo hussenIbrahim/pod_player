@@ -204,28 +204,29 @@ class _MobileOverlayBottomControlles extends StatelessWidget {
           Row(
             children: [
               const SizedBox(width: 12),
-              GetBuilder<PodGetXVideoController>(
-                tag: tag,
-                id: 'video-progress',
-                builder: (_podCtr) {
-                  return Row(
-                    children: [
-                      Text(
-                        _podCtr.calculateVideoDuration(_podCtr.videoPosition),
-                        style: const TextStyle(color: itemColor),
-                      ),
-                      const Text(
-                        ' / ',
-                        style: durationTextStyle,
-                      ),
-                      Text(
-                        _podCtr.calculateVideoDuration(_podCtr.videoDuration),
-                        style: durationTextStyle,
-                      ),
-                    ],
-                  );
-                },
-              ),
+              if (!isLive)
+                GetBuilder<PodGetXVideoController>(
+                  tag: tag,
+                  id: 'video-progress',
+                  builder: (_podCtr) {
+                    return Row(
+                      children: [
+                        Text(
+                          _podCtr.calculateVideoDuration(_podCtr.videoPosition),
+                          style: const TextStyle(color: itemColor),
+                        ),
+                        const Text(
+                          ' / ',
+                          style: durationTextStyle,
+                        ),
+                        Text(
+                          _podCtr.calculateVideoDuration(_podCtr.videoDuration),
+                          style: durationTextStyle,
+                        ),
+                      ],
+                    );
+                  },
+                ),
               const Spacer(),
               MaterialIconButton(
                 toolTipMesg: _podCtr.isFullScreen
