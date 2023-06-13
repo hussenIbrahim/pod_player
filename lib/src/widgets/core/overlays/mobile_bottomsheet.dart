@@ -183,10 +183,11 @@ class _VideoPlaybackSelectorMob extends StatelessWidget {
 
 class _MobileOverlayBottomControlles extends StatelessWidget {
   final String tag;
-
+  final bool isLive;
   const _MobileOverlayBottomControlles({
     Key? key,
     required this.tag,
+    required this.isLive,
   }) : super(key: key);
 
   @override
@@ -252,30 +253,31 @@ class _MobileOverlayBottomControlles extends StatelessWidget {
               ),
             ],
           ),
-          GetBuilder<PodGetXVideoController>(
-            tag: tag,
-            id: 'overlay',
-            builder: (_podCtr) {
-              if (_podCtr.isFullScreen) {
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 20),
-                  child: Visibility(
-                    visible: _podCtr.isOverlayVisible,
-                    child: PodProgressBar(
-                      tag: tag,
-                      alignment: Alignment.topCenter,
-                      podProgressBarConfig: _podCtr.podProgressBarConfig,
+          if (!isLive)
+            GetBuilder<PodGetXVideoController>(
+              tag: tag,
+              id: 'overlay',
+              builder: (_podCtr) {
+                if (_podCtr.isFullScreen) {
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 0, 12, 20),
+                    child: Visibility(
+                      visible: _podCtr.isOverlayVisible,
+                      child: PodProgressBar(
+                        tag: tag,
+                        alignment: Alignment.topCenter,
+                        podProgressBarConfig: _podCtr.podProgressBarConfig,
+                      ),
                     ),
-                  ),
+                  );
+                }
+                return PodProgressBar(
+                  tag: tag,
+                  alignment: Alignment.bottomCenter,
+                  podProgressBarConfig: _podCtr.podProgressBarConfig,
                 );
-              }
-              return PodProgressBar(
-                tag: tag,
-                alignment: Alignment.bottomCenter,
-                podProgressBarConfig: _podCtr.podProgressBarConfig,
-              );
-            },
-          ),
+              },
+            ),
         ],
       ),
     );

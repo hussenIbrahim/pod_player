@@ -2,9 +2,11 @@ part of 'package:pod_player/src/pod_player.dart';
 
 class FullScreenView extends StatefulWidget {
   final String tag;
+  final bool isLive;
   const FullScreenView({
     Key? key,
     required this.tag,
+    required this.isLive,
   }) : super(key: key);
 
   @override
@@ -67,6 +69,7 @@ class _FullScreenViewState extends State<FullScreenView>
                       : _podCtr.videoCtr!.value.isInitialized
                           ? _PodCoreVideoPlayer(
                               tag: widget.tag,
+                              isLive: widget.isLive,
                               videoPlayerCtr: _podCtr.videoCtr!,
                               videoAspectRatio:
                                   _podCtr.videoCtr?.value.aspectRatio ?? 16 / 9,

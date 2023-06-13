@@ -13,25 +13,18 @@ import 'widgets/double_tap_icon.dart';
 import 'widgets/material_icon_button.dart';
 
 part 'widgets/animated_play_pause_icon.dart';
-
 part 'widgets/core/overlays/mobile_bottomsheet.dart';
-
 part 'widgets/core/overlays/mobile_overlay.dart';
-
 part 'widgets/core/overlays/overlays.dart';
-
 part 'widgets/core/overlays/web_dropdown_menu.dart';
-
 part 'widgets/core/overlays/web_overlay.dart';
-
 part 'widgets/core/pod_core_player.dart';
-
 part 'widgets/core/video_gesture_detector.dart';
-
 part 'widgets/full_screen_view.dart';
 
 class PodVideoPlayer extends StatefulWidget {
   final PodPlayerController controller;
+  final bool isLive;
   final double frameAspectRatio;
   final double videoAspectRatio;
   final bool alwaysShowProgressBar;
@@ -69,6 +62,7 @@ class PodVideoPlayer extends StatefulWidget {
     this.matchFrameAspectRatioToVideo = false,
     this.onVideoError,
     this.backgroundColor,
+    required this.isLive,
     this.videoThumbnail,
     this.onToggleFullScreen,
     this.onLoading,
@@ -253,6 +247,7 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
         builder: (_podCtr) {
           if (_podCtr.isFullScreen) return _thumbnailAndLoadingWidget();
           return _PodCoreVideoPlayer(
+            isLive: widget.isLive,
             videoPlayerCtr: _podCtr.videoCtr!,
             videoAspectRatio: _videoAspectRatio,
             tag: widget.controller.getTag,
@@ -261,6 +256,7 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
       );
     } else {
       return _PodCoreVideoPlayer(
+        isLive: widget.isLive,
         videoPlayerCtr: _podCtr.videoCtr!,
         videoAspectRatio: _videoAspectRatio,
         tag: widget.controller.getTag,

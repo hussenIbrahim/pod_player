@@ -8,7 +8,7 @@ class _PodVideoController extends _PodUiController {
   bool isLooping = false;
   bool isFullScreen = false;
   bool isvideoPlaying = false;
-
+  final bool isLive = false;
   List<String> videoPlaybackSpeeds = [
     '0.25x',
     '0.5x',
@@ -230,6 +230,7 @@ class _PodVideoController extends _PodUiController {
           fullscreenDialog: true,
           pageBuilder: (BuildContext context, _, __) => FullScreenView(
             tag: tag,
+            isLive: isLive,
           ),
           reverseTransitionDuration: const Duration(milliseconds: 400),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
